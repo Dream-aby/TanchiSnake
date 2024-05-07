@@ -18,6 +18,22 @@
 #define MAX_PHONE 12
 using namespace std;
 
+// ANSI转义序列定义颜色和样式  
+#define RESET   "\033[0m"  
+#define BOLD    "\033[1m"  
+#define UNDERLINE "\033[4m"  
+#define BLINK   "\033[5m"  
+#define INVERSE "\033[7m"  
+#define HIDDEN  "\033[8m"  
+  
+#define BLACK   "\033[30m"  
+#define RED     "\033[31m"  
+#define GREEN   "\033[32m"  
+#define YELLOW  "\033[33m"  
+#define BLUE    "\033[34m"  
+#define MAGENTA "\033[35m"  
+#define CYAN    "\033[36m"  
+#define WHITE   "\033[37m" 
 //定义全局变量name用来显示正在游戏中的用户
 char Username[MAX_NAME] ;
 
@@ -195,7 +211,7 @@ void createfood()
 
     Pos(food_1->x, food_1->y);
     food = food_1;
-    printf("■");
+    printf("\033[37m■");
 }
 void cantcrosswall( UserGameLog *s,int k)//不能穿墙
 {
@@ -484,7 +500,27 @@ void welcometogame()//开始界面
     system("pause");
     system("cls");
 }
+/*void welcometogame() // 开始界面  
+{  
+    Pos(40, 12);  
+    printf("\033[1;32m欢迎来到贪食蛇游戏！\033[0m\n"); // 绿色文本  
+  
+    // 等待用户按键，而不是使用system("pause")  
+    system("pause");
+    system("cls");
 
+  
+    Pos(25, 12);  
+    printf("用↑.↓.←.→分别控制蛇的移动， F1 为加速，2 为减速\n");  
+    Pos(25, 13);  
+    printf("加速将能得到更高的分数。\n");  
+      system("pause");
+    system("cls");
+    // 再次等待用户按键  
+    printf("\033[1;32m按任意键开始游戏...\033[0m\n");  
+    getchar();  
+}  
+*/
 void endgame(UserGameLog *s,int k)//结束游戏
 {
 
@@ -519,7 +555,7 @@ void gamestart()//游戏初始化
     initsnake();
     createfood();
 }
-
+/*
 //打印菜单
 void menu()
 {
@@ -530,7 +566,20 @@ void menu()
  printf("*****3.找回密码           0.退出程序 *******\n");
  printf("********************************************\n");
  printf("********************************************\n");
-}
+}*/
+// 菜单函数  
+void menu()  
+{  
+    printf(BOLD GREEN "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");  
+    printf(BOLD BLUE "★ 欢迎来到贪吃蛇小游戏 ★\n");  
+    printf(BOLD GREEN "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");  
+    printf(BOLD YELLOW "   %s1.%s 注册新用户\n", INVERSE, RESET);  
+    printf(BOLD WHITE "   %s2.%s 登录\n", INVERSE, RESET);  
+    printf(BOLD CYAN "   %s3.%s 找回密码\n", INVERSE, RESET);  
+    printf(BOLD RED "   %s0.%s 退出程序\n", INVERSE, RESET);  
+    printf(BOLD GREEN "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");  
+    printf("请选择一个选项（输入对应的数字）：");  
+} 
 
 //注册系统
 void Register() {  
@@ -631,6 +680,7 @@ void Login()
     printf("此账号不存在!请重新输入!\n");
     Sleep(500);
     fclose(pf);
+    system("cls");
     pf = NULL;
     return ;
    }
@@ -648,8 +698,9 @@ void Login()
     strcpy(logs[0].username,b.name);
     strcpy( logs[0].password,b.pwd);
  	//printf("测试语句测试名字%s\n",b.name);
-   Sleep(500);
-   fclose(pf);//用完当然要把文件关啦
+   Sleep(1200);
+   fclose(pf);//用完当然要把文件关
+   system("cls");
    pf = NULL;//置空，避免野指针
    return;
   }
